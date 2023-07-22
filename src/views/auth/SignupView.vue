@@ -1,27 +1,32 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <h3>Login</h3>
+    <h3>Sign Up</h3>
+    <input type="text" placeholder="Display Name" autocomplete="on" v-model="displayName" />
     <input type="email" placeholder="Email" autocomplete="on" v-model="email" />
     <input type="password" placeholder="Password" autocomplete="on" v-model="password" />
     <div v-if="error" class="error">{{ error }}</div>
+    <button v-if="!isPending">Sign Up</button>
     <button v-if="isPending" disabled>Loading</button>
-    <button v-if="!isPending">Log in</button>
   </form>
 </template>
 
 <script setup lang="ts">
-import useLogin from '@/composables/useLogin'
+import useSignUp from '@/composables/useSignUp'
 import { ref } from 'vue'
 
-const { error, login, isPending } = useLogin()
-
+//variables
 const email = ref<string>('')
 const password = ref<string>('')
+const displayName = ref<string>('')
 
+//composables
+const { error, signUp, isPending } = useSignUp()
+
+//functions
 const handleSubmit = async () => {
-  const res = await login(email.value, password.value)
+  const res = await signUp(email.value, password.value, displayName.value)
   if (!error.value) {
-    console.log('user logged in')
+    console.log('user signed up')
   }
 }
 </script>
