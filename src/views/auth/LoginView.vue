@@ -13,11 +13,14 @@
 import useLogin from '@/composables/useLogin'
 import { ref } from 'vue'
 
-const { error, login, isPending } = useLogin()
-
+//variables
 const email = ref<string>('')
 const password = ref<string>('')
 
+//composables
+const { error, login, isPending } = useLogin()
+
+//functions
 const handleSubmit = async () => {
   const res = await login(email.value, password.value)
   if (!error.value) {
