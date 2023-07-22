@@ -8,15 +8,20 @@
         </h1>
       </div>
       <div class="navbar__links">
-        <button @click="handleLogout">Log Out</button>
-        <router-link class="btn" :to="{ name: 'signup' }">Sign Up</router-link>
-        <router-link class="btn" :to="{ name: 'login' }">Log In</router-link>
+        <div v-if="user">
+          <button @click="handleLogout" :class="{ disabled: isPending }">Log Out</button>
+        </div>
+        <div v-else>
+          <router-link class="btn" :to="{ name: 'signup' }">Sign Up</router-link>
+          <router-link class="btn" :to="{ name: 'login' }">Log In</router-link>
+        </div>
       </div>
     </nav>
   </div>
 </template>
 
 <script setup lang="ts">
+import getUser from '@/composables/getUser'
 import useLogout from '@/composables/useLogout'
 import { useRouter } from 'vue-router'
 
@@ -25,6 +30,7 @@ const router = useRouter()
 
 //composables
 const { error, logout, isPending } = useLogout()
+const { user } = getUser()
 
 //functions
 const handleLogout = async () => {
@@ -70,6 +76,15 @@ const handleLogout = async () => {
     margin-right: 5px;
     display: flex;
     gap: 15px;
+
+    & a {
+      margin-left: 15px;
+    }
+  }
+
+  .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 </style>
