@@ -22,11 +22,18 @@ button,
     font-weight: 600;
     cursor: pointer;
     display: inline-block;
+    transition: all .3s;
 
     &:hover,
     .btn:hover {
         background: $color-primary;
         color: white;
+        transform: translateY(-2px);
+    }
+
+    &:active,
+    .btn:active{
+        transform: translateY(1px);
     }
 
     &:disabled {

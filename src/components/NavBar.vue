@@ -1,0 +1,75 @@
+<template>
+  <div class="navbar">
+    <nav>
+      <div class="navbar__logo">
+        <img src="@/assets/ninja.png" alt="ninja" />
+        <h1>
+          <router-link :to="{ name: 'home' }"> Muso Music</router-link>
+        </h1>
+      </div>
+      <div class="navbar__links">
+        <button @click="handleLogout">Log Out</button>
+        <router-link class="btn" :to="{ name: 'signup' }">Sign Up</router-link>
+        <router-link class="btn" :to="{ name: 'login' }">Log In</router-link>
+      </div>
+    </nav>
+  </div>
+</template>
+
+<script setup lang="ts">
+import useLogout from '@/composables/useLogout'
+import { useRouter } from 'vue-router'
+
+// config of router
+const router = useRouter()
+
+//composables
+const { error, logout, isPending } = useLogout()
+
+//functions
+const handleLogout = async () => {
+  await logout()
+  if (!error.value) {
+    router.push({ name: 'login' })
+  }
+}
+</script>
+
+
+<style lang="scss">
+.navbar {
+  padding: 16px 10px;
+  margin-bottom: 60px;
+  background: $color-white;
+  border-radius: 0px 0px 5px 5px;
+  border-bottom: 1px solid $color-secondary;
+
+  & nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+
+    & img {
+      max-height: 60px;
+      margin-left: 10px;
+    }
+
+    & h1 {
+      margin-left: 10px;
+    }
+  }
+
+  &__links {
+    margin-right: 5px;
+    display: flex;
+    gap: 15px;
+  }
+}
+</style>
