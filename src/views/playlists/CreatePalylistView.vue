@@ -6,7 +6,8 @@
       <textarea required placeholder="Playlist Description..." v-model="description"></textarea>
       <div class="create-playlist__upload-img">
         <label>Upload playlist cover image</label>
-        <input type="file" />
+        <input type="file" @change="handleChange" />
+        <div class="error" v-if="fileError">{{ fileError }}</div>
       </div>
       <div class="error"></div>
       <button>Create</button>
@@ -21,9 +22,31 @@ import { ref } from 'vue'
 const title = ref<string>('')
 const description = ref<string>('')
 
+const file = ref(null)
+const fileError = ref<string | null>(null)
+
+//allowed file types
+const types = ['image/png', 'image/jpeg']
+
 //functions
 const handleSubmit = () => {
-  console.log(title.value)
+  //we submit the form only if we have a value for file (succesfuly uploaded the img)
+  if (file.value) {
+    console.log(title.value, description.value, file.value)
+  }
+}
+
+const handleChange = (event: any) => {
+  //we always upload only one file [0]
+  const selected = event.target.files[0]
+  //if selected has value and is in type of png or jpeg
+  if (selected && types.includes(selected.type)) {
+    file.value = selected
+    fileError.value = null
+  } else {
+    file.value = null
+    fileError.value = 'Please select an image file (png/jpg)'
+  }
 }
 </script>
 
