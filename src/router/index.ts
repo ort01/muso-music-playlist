@@ -1,12 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+
+//route GUARD
+import { projectAuth } from '@/firebase/config'
+
+const requireAuth = (to: any, from: any, next: any) => {
+  const user = projectAuth.currentUser //property on projectAuth = firebase.auth()
+  if (!user) {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: () => import('../views/HomeView.vue'),
+      beforeEnter: requireAuth
     },
     {
       path: '/signup',
@@ -20,8 +34,16 @@ const router = createRouter({
     },
     {
       path: '/playlists/create',
-      name: 'createPalylist',
-      component: () => import('../views/playlists/CreatePlaylistView.vue')
+      name: 'createPlaylist',
+      component: () => import('../views/playlists/CreatePlaylistView.vue'),
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/playlists/:id',
+      name: 'playlistDetails',
+      component: () => import('../views/playlists/PlaylistDetailsView.vue'),
+      beforeEnter: requireAuth,
+      props: true //we can accept any route parameters as props, inside this component
     }
   ]
 })

@@ -22,6 +22,10 @@ import useStorage from '@/composables/useStorage'
 import useCollection from '@/composables/useCollection'
 import getUser from '@/composables/getUser'
 import { timestamp } from '@/firebase/config'
+import { useRouter } from 'vue-router'
+
+// config of router
+const router = useRouter()
 
 //variables
 const title = ref<string>('')
@@ -65,6 +69,8 @@ const handleSubmit = async () => {
     } else {
       console.log(error.value)
     }
+
+    router.push({ name: 'home' })
   }
 }
 
