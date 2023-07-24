@@ -18,7 +18,7 @@ const getCollection = (collectionName: string) => {
     const unSub = collectionRef.onSnapshot((snapshot) => {
         const results: any = []
 
-        //cycling through the documents from snapshot and adding each document to results array
+        //cycling through the documents from snapshot and adding each document to results array (.docs we get from the snapshot)
         snapshot.docs.forEach((doc) => {
             // must wait for the server to create the timestamp & send it back
             // we don't want to edit data until it has done this

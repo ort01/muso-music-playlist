@@ -21,7 +21,7 @@ const router = createRouter({
     {
       path: '/playlists/create',
       name: 'createPalylist',
-      component: () => import('../views/playlists/CreatePalylistView.vue')
+      component: () => import('../views/playlists/CreatePlaylistView.vue')
     }
   ]
 })
