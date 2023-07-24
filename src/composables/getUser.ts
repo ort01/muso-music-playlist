@@ -13,7 +13,6 @@ const user = ref<firebase.User | null>(projectAuth.currentUser) // property from
 //firebase f with callback f that fires everytime there`s a change in authentication status (login,logout)
 projectAuth.onAuthStateChanged((_user: firebase.User | null) => {
     //login _user = object; logout _user = null
-    console.log(_user);
     user.value = _user
 })
 
