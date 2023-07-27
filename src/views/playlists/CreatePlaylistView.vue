@@ -51,7 +51,7 @@ const handleSubmit = async () => {
 
     await uploadImg(file.value)
 
-    await addDoc({
+    const res = await addDoc({
       userID: user.value?.uid, //from getUser composable (uid is from firebase)
       userName: user.value?.displayName, //from getUser composable (displayName is from firebase)
       title: title.value, // from input
@@ -66,11 +66,10 @@ const handleSubmit = async () => {
 
     if (!error.value) {
       console.log('playlist added')
+      router.push({ name: 'playlistDetails', params: { id: res?.id } })
     } else {
       console.log(error.value)
     }
-
-    router.push({ name: 'home' })
   }
 }
 
@@ -96,6 +95,7 @@ const handleChange = (event: any) => {
       border: none;
       padding: 0;
     }
+
     & label {
       font-size: 12px;
       display: block;
