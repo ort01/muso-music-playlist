@@ -20,21 +20,29 @@
 import getDocument from "@/composables/getDocument"
 import getUser from "@/composables/getUser"
 import useDocument from "@/composables/useDocument"
+import useStorage from "@/composables/useStorage";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 //props
 const props = defineProps({
     id: String
 })
 
+//router
+const router = useRouter()
+
 //composables
 const { error, document: playlist } = getDocument("playlists", props.id) //grab the document form getDocument but call it a playlist
 const { user } = getUser()
 const { deleteDoc } = useDocument("playlists", props.id)
+const { deleteImg } = useStorage()
 
 //functions
 const handleDelete = async () => {
+    await deleteImg(playlist.value.filePath) //we get the path from the getDocument {document: playlist} - its an object with properties
     await deleteDoc()
+    router.push({ name: "home" })
 }
 
 //computed property
