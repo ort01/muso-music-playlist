@@ -8,7 +8,7 @@
             <h2>{{ playlist.title }}</h2>
             <p class="playlist__info--username">Created by {{ playlist.userName }}</p>
             <p class="playlist__info--description">{{ playlist.description }}</p>
-            <button v-if="ownership" @click="handleDelete">Delete Playlist</button>
+            <button v-if=ownership @click="handleDelete">Delete Playlist</button>
         </div>
         <div class="playlist__songs">
             <p>song list here</p>
@@ -47,7 +47,7 @@ const handleDelete = async () => {
 
 //computed property
 const ownership = computed(() => {
-    return playlist.value && user.value && user.value.uid === playlist.value.userID
+    return playlist.value && user.value && user.value.uid === playlist.value.userID //returns TRUE
 })
 
 </script>

@@ -8,12 +8,15 @@ service cloud.firestore {
     // started, but it is configured to expire after 30 days because it
     // leaves your app open to attackers. At that time, all client
     // requests to your Firestore database will be denied.
-    //
-    // Make sure to write security rules for your app before that time, or else
-    // all client requests to your Firestore database will be denied until you Update
-    // your rules
-    match /{document=**} {
-      allow read, write: if request.time < timestamp.date(2023, 8, 18);
+
+    match /playlists/{docId} { //we are capturing the ID
+      allow read, create: if request.auth != null;
+      allow delete, update: if request.auth.uid == resource.data.userID; 
+      // resource represents the document we are trying to delete or update
+      // resource has data on them and data has userID property
     }
   }
 }
+
+
+//firebase deploy --only firestore:rules
