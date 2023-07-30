@@ -14,18 +14,23 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type SinglePlaylist from '../interfaces/SinglePlaylist'
+import useDocument from "@/composables/useDocument"
 
 
+
+//props
+const props = defineProps<{
+    playlist: SinglePlaylist
+}>()
 
 //variables
 const title = ref<string>('')
 const artist = ref<string>('')
 const showForm = ref<boolean>(false)
 
-//props
-const props = defineProps<{
-    playlist?: SinglePlaylist
-}>()
+//composables
+const { updateDoc } = useDocument("playlists", props.playlist.id)
+
 
 //functions
 const handleSubmit = async () => {
@@ -34,7 +39,12 @@ const handleSubmit = async () => {
         artist: artist.value,
         id: Math.floor(Math.random() * 1000000)
     }
-    console.log(newSong);
+    await updateDoc({
+        songs: [...props.playlist.songs, newSong]
+    })
+    title.value = ""
+    artist.value = ""
+    showForm.value = false
 
 }
 

@@ -26,7 +26,21 @@ const useDocument = (collection: string, docID: string | undefined) => {
         }
     }
 
-    return { error, isPending, deleteDoc }
+    const updateDoc = async (updates: object) => { //passing in the object that we want to update
+        isPending.value = true
+        error.value = null
+
+        try {
+            const res = await docRef.update(updates)
+            isPending.value = false
+            return res
+        } catch (err: any) {
+            console.log(err.message)
+            isPending.value = false
+            error.value = err.message
+        }
+    }
+    return { error, isPending, deleteDoc, updateDoc }
 
 }
 

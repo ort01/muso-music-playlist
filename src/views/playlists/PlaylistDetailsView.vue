@@ -11,6 +11,14 @@
             <button v-if=ownership @click="handleDelete">Delete Playlist</button>
         </div>
         <div class="playlist__songs">
+            <div v-if="!playlist.songs.length">No songs have been added to this playlist yet</div>
+            <div v-for="song in playlist.songs" :key="song.id" class="playlist__songs--single">
+                <div class="song-details">
+                    <h3>{{ song.title }}</h3>
+                    <p>{{ song.artist }}</p>
+                </div>
+                <div class="song-details__delete" v-if="ownership">X</div>
+            </div>
             <AddSong v-if="ownership" :playlist="playlist" />
         </div>
     </div>
@@ -98,6 +106,33 @@ const ownership = computed(() => {
         &--description {
             margin-bottom: 20px;
             text-align: left;
+        }
+    }
+
+    &__songs {
+
+        &--single {
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed $color-secondary;
+            margin-bottom: 20px;
+        }
+
+        & .song-details__delete {
+            color: rgb(230, 162, 162);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 15px;
+
+            &:hover {
+                transform: translateY(-2px);
+            }
+
+            &:active {
+                transform: translateY(1px);
+            }
         }
     }
 }
