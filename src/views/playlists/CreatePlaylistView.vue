@@ -6,7 +6,7 @@
       <textarea required placeholder="Playlist Description..." v-model="description"></textarea>
       <div class="create-playlist__upload-img">
         <label>Upload playlist cover image</label>
-        <input type="file" @change="handleChange" />
+        <input class="upload-input" type="file" @change="handleChange" />
         <div class="error" v-if="fileError">{{ fileError }}</div>
       </div>
       <div class="error"></div>
@@ -99,12 +99,18 @@ const handleChange = (event: any) => {
     & label {
       font-size: 12px;
       display: block;
-      margin-top: 30px;
+      margin: 30px auto 0px;
+
     }
   }
 
   & button {
     margin-top: 20px;
   }
+}
+
+.upload-input {
+  margin: 5px auto;
+  color: rgba($color-primary, .3)
 }
 </style>

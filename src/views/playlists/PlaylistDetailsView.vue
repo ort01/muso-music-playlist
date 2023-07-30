@@ -11,12 +11,13 @@
             <button v-if=ownership @click="handleDelete">Delete Playlist</button>
         </div>
         <div class="playlist__songs">
-            <p>song list here</p>
+            <AddSong v-if="ownership" :playlist="playlist" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import AddSong from "@/components/AddSong.vue"
 import getDocument from "@/composables/getDocument"
 import getUser from "@/composables/getUser"
 import useDocument from "@/composables/useDocument"
@@ -25,9 +26,10 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 //props
-const props = defineProps({
-    id: String
-})
+const props = defineProps<{
+    id: string
+}>()
+
 
 //router
 const router = useRouter()

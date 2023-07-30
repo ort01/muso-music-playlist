@@ -1,5 +1,5 @@
 <template>
-  <div v-for="playlist in playlists" :key="playlist.id">
+  <div v-for="playlist in props.playlists" :key="playlist.id">
     <router-link :to="{ name: 'playlistDetails', params: { id: playlist.id } }">
       <div class="single-playlist">
         <div class="single-playlist__thumbnail">
@@ -18,11 +18,11 @@
 </template>
 
 <script setup lang="ts">
-// import { defineProps } from 'vue'
+
 import type SinglePlaylist from '../interfaces/SinglePlaylist'
 
 //props
-defineProps<{
+const props = defineProps<{
   playlists: SinglePlaylist[]
 }>()
 </script>
