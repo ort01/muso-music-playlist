@@ -4,7 +4,7 @@
       <ListPlaylist :playlists="documents" />
     </div>
 
-    <div class="error" v-if="error">{{ error.value }}</div>
+    <div class="error" v-if="error">{{ error }}</div>
   </div>
 </template>
 

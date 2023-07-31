@@ -5,13 +5,18 @@ import { projectFirestore } from "../firebase/config";
 import type SinglePlaylist from "@/interfaces/SinglePlaylist";
 
 
-const getCollection = (collectionName: string) => {
+const getCollection = (collectionName: string, query?: [string, any, any?]) => {
 
     const error = ref<string | null>(null)
     const documents = ref<SinglePlaylist[] | []>([])
 
     //colection reference
-    const collectionRef = projectFirestore.collection(collectionName).orderBy("createdAt")
+    let collectionRef = projectFirestore.collection(collectionName).orderBy("createdAt")
+
+    if (query) {
+        collectionRef = collectionRef.where(...query) //where() - takes in 3 arguments "x", "==", "y"
+        //with spread syntax we get "userID", "==", "user.value.uid"
+    }
 
     //onSnapshot is how we set up a real time listener to the firestore database, 
     //each time theres a change in that database collection it sends us back a snapShot (with all of the data from that moment in time) and fires the callback F
