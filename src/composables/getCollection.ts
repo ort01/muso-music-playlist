@@ -16,6 +16,7 @@ const getCollection = (collectionName: string, query?: [string, any, any?]) => {
     if (query) {
         collectionRef = collectionRef.where(...query) //where() - takes in 3 arguments "x", "==", "y"
         //with spread syntax we get "userID", "==", "user.value.uid"
+        //https://firebase.google.com/docs/firestore/query-data/queries#web-namespaced-api_1
     }
 
     //onSnapshot is how we set up a real time listener to the firestore database, 
