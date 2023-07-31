@@ -44,7 +44,13 @@ const router = createRouter({
       component: () => import('../views/playlists/PlaylistDetailsView.vue'),
       beforeEnter: requireAuth,
       props: true //we can accept any route parameters as props, inside this component
-    }
+    },
+    {
+      path: '/playlists/user',
+      name: 'userPlaylists',
+      component: () => import('../views/playlists/UserPlaylistsView.vue'),
+      beforeEnter: requireAuth
+    },
   ]
 })
 

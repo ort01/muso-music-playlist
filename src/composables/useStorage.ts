@@ -10,7 +10,7 @@ const { user } = getUser()
 const useStorage = () => {
 
     const error = ref<string | null>(null)
-    const url = ref<any>(null) //for using the picture on frontend through URL (like its on the internet)
+    const url = ref<string | null>(null) //for using the picture on frontend through URL (like its on the internet)
     const filePath = ref<string | null>(null)
 
 

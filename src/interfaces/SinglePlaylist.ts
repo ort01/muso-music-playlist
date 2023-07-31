@@ -7,5 +7,11 @@ export default interface SinglePlaylist {
     coverURL: string,
     filePath: string,
     createdAt: Date,
-    songs: string[]
+    songs: Song[]
+}
+
+interface Song {
+    id: number
+    title: string
+    artist: string
 }

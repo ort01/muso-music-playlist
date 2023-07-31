@@ -2,12 +2,13 @@
 
 import { ref, watchEffect } from "vue";
 import { projectFirestore } from "../firebase/config";
+import type SinglePlaylist from "@/interfaces/SinglePlaylist";
 
 
 const getCollection = (collectionName: string) => {
 
-    const error: any = ref(null)
-    const documents: any = ref([])
+    const error = ref<string | null>(null)
+    const documents = ref<SinglePlaylist[] | []>([])
 
     //colection reference
     const collectionRef = projectFirestore.collection(collectionName).orderBy("createdAt")

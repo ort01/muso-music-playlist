@@ -29,12 +29,11 @@ const handleSubmit = async () => {
   const res = await login(email.value, password.value)
   if (!error.value) {
     console.log('user logged in')
-    router.push({name: 'home'})
+    router.push({ name: 'home' })
   }
 
 }
 </script>
 
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

@@ -5,8 +5,8 @@ import type SinglePlaylist from "@/interfaces/SinglePlaylist";
 
 const getDocument = (collectionName: string, id: string | undefined) => {
 
-    const error: any = ref(null)
-    const document: any = ref(null)
+    const error = ref<string | null>(null)
+    const document = ref<SinglePlaylist | null>(null)
 
     //document reference - we get into the collection and find a document by passing the id of the doc
     const documentRef = projectFirestore.collection(collectionName).doc(id)
@@ -16,7 +16,7 @@ const getDocument = (collectionName: string, id: string | undefined) => {
     // onSnapshot function returns a function that can stop listening for snapshots - https://firebase.google.com/docs/firestore/query-data/listen
     const unSub = documentRef.onSnapshot((docSnap) => {
         if (docSnap.data()) {
-            document.value = { ...docSnap.data(), id: docSnap.id }
+            document.value = <SinglePlaylist>{ ...docSnap.data(), id: docSnap.id }
             error.value = null
         } else {
             error.value = "That document does not exist"

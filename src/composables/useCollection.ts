@@ -5,7 +5,7 @@ import { projectFirestore } from "../firebase/config"
 
 
 const useCollection = (collectionName: string) => {
-    const error = ref(null)
+    const error = ref<string | null>(null)
     const isPending = ref<boolean>(false)
 
     const addDoc = async (doc: object) => {

@@ -5,8 +5,8 @@ import { projectFirestore } from "../firebase/config";
 //for editing and deleting documents
 const useDocument = (collection: string, docID: string | undefined) => {
 
-    const error = ref(null)
-    const isPending = ref(false)
+    const error = ref<string | null>(null)
+    const isPending = ref<boolean>(false)
 
     // let docRef = projectFirestore.collection(collection).doc(docID)
     const docRef = projectFirestore.collection(collection).doc(docID)
@@ -26,7 +26,7 @@ const useDocument = (collection: string, docID: string | undefined) => {
         }
     }
 
-    const updateDoc = async (updates: object) => { //passing in the object that we want to update
+    const updateDoc = async (updates: object) => { //passing in the object with certain properties that we want to update
         isPending.value = true
         error.value = null
 

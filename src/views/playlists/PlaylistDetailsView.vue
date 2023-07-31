@@ -8,7 +8,7 @@
             <h2>{{ playlist.title }}</h2>
             <p class="playlist__info--username">Created by {{ playlist.userName }}</p>
             <p class="playlist__info--description">{{ playlist.description }}</p>
-            <button v-if=ownership @click="handleDelete">Delete Playlist</button>
+            <button v-if=ownership @click="handlePlaylistDelete">Delete Playlist</button>
         </div>
         <div class="playlist__songs">
             <div v-if="!playlist.songs.length">No songs have been added to this playlist yet</div>
@@ -17,7 +17,7 @@
                     <h3>{{ song.title }}</h3>
                     <p>{{ song.artist }}</p>
                 </div>
-                <div class="song-details__delete" v-if="ownership">X</div>
+                <div class="song-details__delete" v-if="ownership" @click="handleSongDelete(song.id)">X</div>
             </div>
             <AddSong v-if="ownership" :playlist="playlist" />
         </div>
@@ -45,14 +45,25 @@ const router = useRouter()
 //composables
 const { error, document: playlist } = getDocument("playlists", props.id) //grab the document form getDocument but call it a playlist
 const { user } = getUser()
-const { deleteDoc } = useDocument("playlists", props.id)
+const { deleteDoc, updateDoc } = useDocument("playlists", props.id)
 const { deleteImg } = useStorage()
 
 //functions
-const handleDelete = async () => {
-    await deleteImg(playlist.value.filePath) //we get the path from the getDocument {document: playlist} - its an object with properties
-    await deleteDoc()
-    router.push({ name: "home" })
+const handlePlaylistDelete = async () => {
+    if (playlist.value) {
+        await deleteImg(playlist.value.filePath) //we get the path from the getDocument {document: playlist} - its an object with properties
+        await deleteDoc()
+        router.push({ name: "home" })
+    }
+}
+
+const handleSongDelete = async (songID: number) => {
+    const filteredSongs = playlist.value?.songs.filter((song) => {
+        return song.id != songID
+    })
+    await updateDoc({
+        songs: filteredSongs
+    })
 }
 
 //computed property
@@ -73,8 +84,6 @@ const ownership = computed(() => {
         text-align: center;
 
         &--cover {
-            // max-width: 100px;
-            // max-height: 100px;
             border-radius: 20px;
             position: relative;
             padding: 160px;
@@ -89,6 +98,7 @@ const ownership = computed(() => {
                 max-width: 100%;
                 max-height: 100%;
                 display: block;
+                object-fit: cover;
             }
         }
 

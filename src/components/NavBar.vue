@@ -9,7 +9,8 @@
       </div>
       <div class="navbar__links">
         <div v-if="user">
-          <router-link class="btn" :to="{ name: 'createPlaylist'}">Create Playlist</router-link>
+          <router-link class="btn btn-playlist" :to="{ name: 'createPlaylist' }">Create Playlist</router-link>
+          <router-link class="btn btn-playlist" :to="{ name: 'userPlaylists' }">My Playlists</router-link>
           <button @click="handleLogout" :class="{ disabled: isPending }">Log Out</button>
         </div>
         <div v-else>
@@ -78,8 +79,19 @@ const handleLogout = async () => {
     display: flex;
     gap: 15px;
 
-    & a, button {
+    & a,
+    button {
       margin-left: 15px;
+    }
+
+    & .btn-playlist {
+      font-size: 13px;
+      background: none;
+
+      &:hover {
+        background: none;
+        color: black;
+      }
     }
 
   }
