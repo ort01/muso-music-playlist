@@ -30,14 +30,13 @@ import getDocument from "@/composables/getDocument"
 import getUser from "@/composables/getUser"
 import useDocument from "@/composables/useDocument"
 import useStorage from "@/composables/useStorage";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
 //props
-const props = defineProps<{
+const props = defineProps<{ //from router path '/playlists/:id' prop - :id
     id: string
 }>()
-
 
 //router
 const router = useRouter()

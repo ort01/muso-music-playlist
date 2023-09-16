@@ -15,11 +15,7 @@ import getUser from '@/composables/getUser';
 
 //composables
 const { user } = getUser()
-const { error, documents: playlists } = getCollection('playlists', ['userID', "==", user.value?.uid]) //passing in 3 arguments as one (query)
-
-// console.log(playlists);
-
-
+const { documents: playlists } = getCollection('playlists', ['userID', "==", user.value?.uid]) //passing in 3 arguments as one (query)
 </script>
 
 
