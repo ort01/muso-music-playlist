@@ -12,4 +12,4 @@ Main goal of this project was to practice technologies listed down below.
     - FireStore
     - Auth
     - Storage
-
+- Vite
