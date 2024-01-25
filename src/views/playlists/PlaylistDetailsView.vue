@@ -8,7 +8,7 @@
             <h2>{{ playlist.title }}</h2>
             <p class="playlist__info--username">Created by {{ playlist.userName }}</p>
             <p class="playlist__info--description">{{ playlist.description }}</p>
-            <button v-if=ownership @click="handlePlaylistDelete">Delete Playlist</button>
+            <button v-if="ownership" @click="handlePlaylistDelete">Delete Playlist</button>
         </div>
         <div class="playlist__songs">
             <div v-if="!playlist.songs.length">No songs have been added to this playlist yet</div>

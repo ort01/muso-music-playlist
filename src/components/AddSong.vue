@@ -60,7 +60,7 @@ const handleSubmit = async () => {
 
     & form {
         max-width: 100%;
-        transition: all 1ss ease;
+        transition: all 1s ease;
 
         & button {
             font-size: 20px;
